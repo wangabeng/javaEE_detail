@@ -5,7 +5,7 @@
 2 下载后解压  
 进入到tomcat安装目录的bin目录下，双击startup.bat即可启动tomcat(还可以把startup.bat发送到桌面，以后启动就方便了)。
 
-#jsp servlet MVC模式
+# jsp servlet MVC模式
 https://zhuanlan.zhihu.com/p/20569158
 JSP与Servlet比较  
 我们已经学习了两种Java服务器端技术——JSP和Servlet，比较二者的不同：  
