@@ -25,4 +25,11 @@ Controller——负责转发请求，对请求进行处理
 View——负责界面显示  
 Model——业务功能编写（例如算法实现）、数据库设计以及数据存取操作实现  
 在JSP/Servlet开发的软件系统中，这三个部分的描述如下所示：  
+  
 ![avatar](./MVC.png)
+  
+1 Web浏览器发送HTTP请求到服务端，被Controller(Servlet)获取并进行处理（例如参数解析、请求转发）  
+2 Controller(Servlet)调用核心业务逻辑——Model部分，获得结果  
+3 Controller(Servlet)将逻辑处理结果交给View（JSP），动态输出HTML内容  
+4 动态生成的HTML内容返回到浏览器显示  
+MVC模式在Web开发中的好处是非常明显，它规避了JSP与Servlet各自的短板，Servlet只负责业务逻辑而不会通过out.append()动态生成HTML代码；JSP中也不会充斥着大量的业务代码。这大大提高了代码的可读性和可维护性。  
