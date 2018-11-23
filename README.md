@@ -33,3 +33,81 @@ Model——业务功能编写（例如算法实现）、数据库设计以及数
 3 Controller(Servlet)将逻辑处理结果交给View（JSP），动态输出HTML内容  
 4 动态生成的HTML内容返回到浏览器显示  
 MVC模式在Web开发中的好处是非常明显，它规避了JSP与Servlet各自的短板，Servlet只负责业务逻辑而不会通过out.append()动态生成HTML代码；JSP中也不会充斥着大量的业务代码。这大大提高了代码的可读性和可维护性。  
+
+# 一个简单的sevelet demo
+1 电脑安装好jdk  
+2 下载tomcat32位/64位安装包（无需安装）  
+3 在任何位置新建一个项目文件夹 project1，在project1内新建三个文件夹 /classes /etc /src
+新建 /src/Ch1Servlet.java(所有文件都需要设置字符集编码utf-8)
+```
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+
+public class Ch1Servlet extends HttpServlet {
+  public void doGet (HttpServletRequest reque, HttpServletResponse response) throws IOException {
+    PrintWriter out = response.getWriter();
+    java.util.Date today = new java.util.Date();
+    out.println(
+        "<html>" +
+        "<body>" +
+        "<h1>this is my first project</h1>" +
+        "</body>" +
+        "</html>"
+      );
+  }
+}
+```
+新建 /etc/web.xml(所有文件都需要设置字符集编码utf-8)
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+  <servlet>
+    <servlet-name>Chapter1 Servlet</servlet-name>
+    <servlet-class>Ch1Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Chapter1 Servlet</servlet-name>
+    <url-pattern>/Serv1</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+```
+
+4 javac编译文件 
+在project1根目录，把servlet-api.jar拷贝到当前目录(servlet-api.jar文件原本存放在E:\apache-tomcat7\lib\)
+```
+javac -classpath ./servlet-api.jar -d classes ./src/Ch1Servlet.java
+```
+编译完成的文件保存在 /classes/Ch1Servlet.class
+
+5 复制文件  
+在tomcat内新建文件夹
+E:\apache-tomcat7\webapps\ch1\WEB-INF  
+把web.xml拷贝到当前目录，然后新建 WEB-INF\classes 把编译的文件Ch1Servlet.class拷贝到classes文件夹内
+
+6 执行tomcat的startup.sh 
+7 浏览器输入 http://localhost:8080/ch1/Serv1 页面出现 this is my first project  
