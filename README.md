@@ -111,3 +111,4 @@ E:\apache-tomcat7\webapps\ch1\WEB-INF
 
 6 执行tomcat的startup.sh 
 7 浏览器输入 http://localhost:8080/ch1/Serv1 页面出现 this is my first project  
+8 关闭tomcat 执行bin/startup.sh  
