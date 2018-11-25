@@ -115,3 +115,15 @@ E:\apache-tomcat7\webapps\ch1\WEB-INF
 
 # 解决tomcat控制台乱码问题 
 暂时没有找到答案
+
+# javac出现的坑
+比如项目目录是bearV1  
+编译文件存放的位置是 bearV1\src\com\example\web\BeerSelect.java  (包名称是package com.example.web;)  
+工具类文件存放在根目录 bearV1\servlet-api.jar  
+打包时使用 当前盘符在bearV1下
+```
+javac -classpath ./servlet-api.jar -d classes ./src/com/example/web/BeerSelect.java
+```
+即可在项目根目录下生成一个classes文件夹 打包后的文件存放在 bearV1/classes/com/example/web/BeerSelect.class  
+坑： 如果在com目录下进行打包 执行 'javac -classpath ./servlet-api.jar -d classes ./com/example/web/BeerSelect.java' 就会出错 我分析 是包名是  com.example.web，正常打包会生成 com/example/web 但是现在没有在项目根目录，而在com目录，因为目录冲突，所以无法打包。
+
